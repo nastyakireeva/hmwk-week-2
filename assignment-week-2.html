@@ -1,0 +1,82 @@
+<html>
+<head>
+<h2>Welcome to my number guessing game!</h2>
+</head>
+
+<p id="guesses"></p>
+<p id="lastResult"></p>
+<p id="lowOrHi"></p>
+
+<div id="message">Guess the secret number from 1 to 20!</div>
+
+<div class="form">
+  <input type="text" id="guessField">
+  <button id="guessSubmit">Guess!</button>
+</div>
+
+<style>
+
+body {
+background-color: #dcd9d9;
+	font-family: Arial, sans-serif;
+  
+  }
+
+#guessSubmit {
+	margin-top: 10px;
+  margin-left: 10px;
+	border-radius: 15px;
+	width: 20%;
+	padding: 5px;
+	text-align: center;
+	font-weight: bold;
+  font-size: 20px;
+  background-color: #ffe4f3;
+}
+
+#guessField {
+  width: 150px;
+  height: 20px;
+  border-radius: 15px;
+}
+</style>
+
+  <script>
+let randomNumber = Math.floor(Math.random() * 20) + 1;
+let guesses = document.getElementById("guesses");
+let lastResult = document.getElementById("lastResult");
+let lowOrHi = document.getElementById("lowOrHi");
+let guessSubmit = document.getElementById("guessSubmit");
+let guessField = document.getElementById("guessField");
+let guessCount = 1;
+function checkGuess() {
+  let userGuess = Number(guessField.value);
+  guesses.innerHTML += userGuess + " ";
+  if(guessCount == 10) {
+    lastResult.innerHTML = "GAME OVER!";
+    disableForm();
+  } else {
+    if(userGuess === randomNumber) {
+      lastResult.innerHTML = "Congratulations! You guessed correctly!";
+      document.getElementById("lastResult").style.backgroundColor = '#0fcea4';
+      lowOrHi.innerHTML = "";
+      disableForm();
+    } else {
+      lastResult.innerHTML = "Sorry!";
+      if(userGuess < randomNumber) {
+        lowOrHi.innerHTML = "Your guess was too low";
+        document.getElementById("lowOrHi").style.backgroundColor = '#ff6f4e';
+      } else if(userGuess > randomNumber) {
+        lowOrHi.innerHTML = "Your guess was too high";
+        document.getElementById("lowOrHi").style.backgroundColor = '#ff6f4e';
+      }
+    }
+    guessCount++;
+    guessField.value = "";
+  }
+}
+
+guessSubmit.onclick = checkGuess;
+  </script>
+
+</html>
